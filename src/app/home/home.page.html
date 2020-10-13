@@ -1,0 +1,62 @@
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+  <div class="flb">
+    <div class="Aligner-item Aligner-item--top"></div>
+    <img src="assets/icon/logo.png">
+    <div class="Aligner-item Aligner-item--bottom"></div>
+  </div>
+</div>
+
+<ion-content *ngIf="bitcoin$ ; else loading" forceOverscroll=false>
+    <div id="section1">
+      <ion-buttons slot="start">
+        <ion-menu-button menu="main-menu"></ion-menu-button>
+        <ion-icon name="refresh-outline" (click)="changeFiat()"></ion-icon>
+      </ion-buttons>
+      
+      <small class="infoText">{{selectedCrypto}} price </small>
+      <div id="sub-sec1">
+        <p> {{bitcoin$.current_price  | currency:selectedFiat:true}} 
+          <small [ngClass]="(bitcoin$.price_change_percentage_24h > 0) ?'positivePriceChange':'negativePriceChange'">{{bitcoin$.price_change_percentage_24h | number:'1.1-1'}}%
+          <div *ngIf="bitcoin$.price_change_percentage_24h > 0; then tradingup else tradingdown">
+          </div>
+        
+          <ng-template #tradingup>
+            <ion-icon  name="trending-up-outline"></ion-icon>
+          </ng-template>
+          
+          <ng-template #tradingdown>
+            <ion-icon  name="trending-down-outline"></ion-icon>
+          </ng-template>
+  
+          </small></p>  
+        <ion-select la interface="popover" [(ngModel)]="selectedFiat" (ionChange)="changeFiat()">
+          <ion-select-option *ngFor="let fiat of fiats" value="{{fiat}}">{{fiat}}</ion-select-option>
+        </ion-select>
+        <div>
+          
+          <ion-avatar>
+            <img src="{{bitcoin$.image}}" alt="Bitcoin"/>
+          </ion-avatar>
+        </div>
+      </div>
+      <div class="infoTextdiv">
+        <small>The current circulating supply is {{bitcoin$.circulating_supply}} coin</small>
+      </div>
+      <p class="subText" *ngIf="bitcoins$ ; else loading">Market Cup Rank</p>
+      <div id="sub-sec2">
+        <span *ngFor="let rank of bitcoins$ ;index as indexOfelement;">
+          <ion-avatar>
+            <img src="{{rank.image}}" alt="Bitcoin"/>
+          </ion-avatar>
+          <p>Rank {{rank.market_cap_rank}}</p>
+        </span>
+      </div>
+    </div>
+  <ion-card>
+    <ion-card-content>
+      <h2><b>Recent Trading</b></h2>
+      <app-card  [bitcoin$]=bitcoin$ [selectedFiat]=selectedFiat [chartData]=chartData [chartLabels]=chartLabels></app-card>
+    </ion-card-content>
+  </ion-card>
+  </ion-content>
+  

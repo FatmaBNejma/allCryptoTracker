@@ -1,0 +1,76 @@
+h2 {
+    Color:#033278;
+    padding : 10px;
+}
+
+ion-card {
+    --border-radius:15px;
+    ion-card-subtitle {
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        ion-icon{
+            color: #000;
+        }
+    }
+}
+#card-2 {
+    #sub-card-1 {
+        ion-item {
+            margin: 10px;
+            justify-content: space-between;
+            
+            #row {
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-left: 10px;
+                }
+            }
+
+            ion-icon {
+                font-size: 40px;
+                color: #033278;
+            }
+        }
+    }
+
+    #sub-card-2 {
+        ion-item {
+            margin: 10px;
+            justify-content: space-between;
+            
+            #row {
+                div {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-left: 10px;
+                }
+            }
+
+            small {
+                font-size: 15px;
+                display: flex;
+                flex-direction: unset;
+                
+                ion-icon {
+                    font-size: 12px;
+                }
+            }
+
+           
+        }
+    }
+
+
+}
+
+.positivePriceChange {
+    color: limegreen;
+}
+.negativePriceChange {
+    color: red;
+}

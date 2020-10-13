@@ -1,0 +1,78 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>
+      {{bitcoin$.id}} Chart
+      <ion-icon name="settings-outline" (click)="presentModal()"></ion-icon>
+      <!-- <ion-item>
+        <ion-label>From: </ion-label>
+        <ion-datetime displayFormat="MMM D, YYYY" min="2005" max="2016" value="2008-09-02"></ion-datetime>
+        &nbsp;
+        <ion-label>To: </ion-label>
+        <ion-datetime displayFormat="MMM D, YYYY" min="2005" max="2016" value="2008-09-02"></ion-datetime>
+      </ion-item> -->
+    </ion-card-subtitle>
+    
+   
+    <!-- <ion-card-title>Card Title</ion-card-title> -->
+  </ion-card-header>
+
+  <ion-card-content>
+    <canvas baseChart 
+    [datasets]="chartData" 
+    [labels]="chartLabels" 
+    [options]="chartOptions" 
+    [colors]="settings.chartColors"
+    [legend]="settings.showLegend" 
+    [chartType]="settings.chartType"></canvas>
+  </ion-card-content>
+</ion-card>
+<h2><b>Details</b></h2>
+<div id="card-2">
+  <ion-card id="sub-card-1">
+    <ion-label><b>24h Price</b></ion-label>
+    <ion-item class="ion-activated">
+      <ion-icon name="time-outline"></ion-icon>
+      <div id="row">
+        <div>
+          <div>
+            <p>Low &nbsp; {{bitcoin$.low_24h | currency:selectedFiat:true}}<span>&nbsp; </span></p>
+          </div>
+          <div>
+            <p>High &nbsp; {{bitcoin$.high_24h | currency:selectedFiat:true}}<span>&nbsp; </span></p>
+          </div>
+          
+        </div>
+      </div>
+    </ion-item>
+  
+  </ion-card>
+
+  <ion-card id="sub-card-2">
+    <ion-label><b>Market cap change</b></ion-label>
+    <ion-item class="ion-activated">
+      <ion-icon name="reader-outline"></ion-icon>
+      <div id="row">
+        <div>
+          {{bitcoin$.market_cap_change_24h | currency:selectedFiat:true}} 
+          <small [ngClass]="(bitcoin$.price_change_percentage_24h > 0) ?'positivePriceChange':'negativePriceChange'">&nbsp; {{bitcoin$.market_cap_change_percentage_24h | number:'1.1-1'}}%
+            <div *ngIf="bitcoin$.price_change_percentage_24h > 0; then tradingup else tradingdown">
+            </div>
+          
+            <ng-template #tradingup>
+              <ion-icon  name="trending-up-outline"></ion-icon>
+            </ng-template>
+            
+            <ng-template #tradingdown>
+              <ion-icon  name="trending-down-outline"></ion-icon>
+            </ng-template>
+    
+            </small>
+        </div>
+      </div>
+    </ion-item>
+  </ion-card>
+
+</div>
+
+
+

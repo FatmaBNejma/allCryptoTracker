@@ -1,0 +1,7 @@
+{
+  "name": "allCryptoTracker",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
